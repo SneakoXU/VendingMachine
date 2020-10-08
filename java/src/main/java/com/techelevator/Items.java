@@ -1,13 +1,14 @@
 package com.techelevator;
 
-public class Items {
+public abstract class Items {
 
 	private String name;
 	private double price;
+	private int numberOfItems = 5;
 	
 	public Items (String name, double price) { 
-		this.setName(name);
-		this.setPrice(price);
+		this.name = name;
+		this.price = price;
 	}
 
 	public String getName() {
@@ -24,5 +25,19 @@ public class Items {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public int getNumberOfItems() {
+		return numberOfItems;
+	}
+	
+	public boolean isAvailableToPurchase() {
+		if(this.numberOfItems >=1) {
+			return true;
+		}
+		return false;
+	}
+	public void purchaseItem() {
+		numberOfItems -= 1;
 	}
 }

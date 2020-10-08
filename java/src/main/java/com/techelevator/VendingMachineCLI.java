@@ -14,9 +14,15 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
+	
+	private static final String PRINT_MENU_FEED = "Feed Money";
+	private static final String PRINT_MENU_SELECT = "Select Product";
+	private static final String PRINT_MENU_FINISH = "Finish Transaction";
+	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH};
+
 
 	private Menu menu;
-	public  ReadFile output = new ReadFile();
+//	public  ReadFile output = new ReadFile();
 	
 	public VendingMachineCLI(Menu menu) {
 		this.menu = menu;
@@ -28,34 +34,33 @@ public class VendingMachineCLI {
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
-
-				output.getInventory();
+				String path = "C:\\Users\\Student\\workspace\\mod1-capstone-team-8\\java\\vendingmachine.csv";
+				File inputFile = new File(path);
+				List<Items> inventoryList = new ArrayList<>();
+				try{
+					Scanner fileScanner = new Scanner(inputFile);
+					
+					fileScanner.useDelimiter("\\|");
+					while(fileScanner.hasNextLine()) {
+					System.out.println(fileScanner.nextLine());
+					}
+			}catch(FileNotFoundException e) {
+				e.printStackTrace();
+			}
 				
-				output.printMap();
 				
 				
-				
+			
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+				 choice = (String) menu.getChoiceFromOptions(PRINT_MENU_OPTIONS);
 				// do purchase
+				
 			}
 		}
 	}
 
 	public static void main(String[] args) {
-		String path = "C:\\Users\\Student\\workspace\\mod1-capstone-team-8\\java\\vendingmachine.csv";
-		File inputFile = new File(path);
-		List<Items> inventoryList = new ArrayList<>();
-		try{
-			Scanner fileScanner = new Scanner(inputFile);
-			
-			fileScanner.useDelimiter("\\|");
-			System.out.println(fileScanner.nextLine());
-			System.out.println(fileScanner.nextLine());
-			System.out.println(fileScanner.nextLine());
-			System.out.println(fileScanner.nextLine());
-	}catch(FileNotFoundException e) {
-		e.printStackTrace();
-	}
+		
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
