@@ -2,6 +2,10 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +19,7 @@ import java.util.Set;
 public class VendingMachine {
 	
 	public double balance;
+	public List <String> list;
 	
 	
 	public VendingMachine() {
@@ -59,7 +64,7 @@ public class VendingMachine {
 			inventoryMap.put(sections[0], gumItem);
 	}
 		
-		//return inventoryMap;
+		
 		
 	}
 		return inventoryMap;
@@ -89,16 +94,34 @@ public class VendingMachine {
 			balance -= (change[i] * counter);
 			System.out.println(counter + " " + coinNames[i]);
 		}
+	}
 		
 	public void logFile() throws IOException {
 		File outputFile = new File("Log.txt");
+		List<String> list = getList();
+		try(FileWriter logWriter = new FileWriter(outputFile, true)) {
+			for(String string : list) {
+				logWriter.write(string);
+				logWriter.write("\n");
+			}
+		}
 		
 	}	
+//	public List<String> log(String name, double beginningAmount, double endAmount) {
+//		LocalDateTime time = LocalDateTime.now();
+//		DecimalFormat myFormat = new DecimalFormat("#.00");
+//		String string = time + " " + name + " " + beginningAmount + " " + myFormat.format(endAmount);
+		// list.add(string);
+//		return list;
+//	}
+	public List<String> getList() {
+		return this.list;
+	}
 		
 	}
 		
 	
 		
 
-	}
+	
 

@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.text.DecimalFormat;
+
 public abstract class Items {
 
 	private String name;
@@ -45,7 +47,12 @@ public abstract class Items {
 	}
 	
 	public abstract String getSound();
-
+	
+	public String toString() {
+		DecimalFormat myFormat = new DecimalFormat("#.00");
+		String string= String.format(" %1$-20s %2$-10s %3$s", name, "$" + myFormat.format(price), this.getNumberOfItems());
+		return string;
+	}
 	
 
 }

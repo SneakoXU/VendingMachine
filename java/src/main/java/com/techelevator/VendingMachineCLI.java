@@ -21,7 +21,8 @@ public class VendingMachineCLI {
 	private static final String PRINT_MENU_FEED = "Feed Money";
 	private static final String PRINT_MENU_SELECT = "Select Product";
 	private static final String PRINT_MENU_FINISH = "Finish Transaction";
-	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH};
+	private static final String PRINT_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
+	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH, PRINT_MENU_OPTION_DISPLAY_ITEMS};
 
 
 	private Menu menu;
@@ -45,23 +46,9 @@ public class VendingMachineCLI {
 				// display vending machine items
 			Set<String> inventoryItems = inventory.keySet();
 			for(String items : inventoryItems) {
-				System.out.println(items + "\t" + inventory.get(items).getName() + "\t" + inventory.get(items).getPrice() + "\t" + inventory.get(items).getNumberOfItems());
-			}
+				System.out.println(items + " " + inventory.get(items).toString());
+				}
 				
-				
-//				String path = "C:\\Users\\Student\\workspace\\mod1-capstone-team-8\\java\\vendingmachine.csv";
-//				File inputFile = new File(path);
-//				List<Items> inventoryList = new ArrayList<>();
-//				try{
-//					Scanner fileScanner = new Scanner(inputFile);
-//					
-//					fileScanner.useDelimiter("\\|");
-//					while(fileScanner.hasNextLine()) {
-//					System.out.println(fileScanner.nextLine());
-//					}
-//			}catch(FileNotFoundException e) {
-//				e.printStackTrace();
-//			}
 				
 				
 				
@@ -106,9 +93,10 @@ public class VendingMachineCLI {
 							inventory.get(input).purchaseItem();
 							purchasedObjects.add(inventory.get(input));
 							vendingMachine.balance -= inventory.get(input).getPrice();
-							vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
+	//						vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
 							System.out.println("purchased");
-							//System.out.println("Item selected: " + inventory.get(input).getName() + " | " + "Item price: " + inventory.get(input).getPrice() + " | " + "Remaining balance: " + vendingMachine.balance);
+							inventory.get(input).purchaseItem();
+							System.out.println("Item selected: " + inventory.get(input).getName() + " | " + "Item price: " + inventory.get(input).getPrice() + " | " + "Remaining balance: " + vendingMachine.balance);
 						}else if(!inventory.get(input).isAvailableToPurchase()) {
 							System.out.println("Sold out");
 							break;
@@ -133,10 +121,16 @@ public class VendingMachineCLI {
 						System.out.println(sound);
 						}
 					break;
+				} else if (choice.equals(PRINT_MENU_OPTION_DISPLAY_ITEMS)) {
+					// display vending machine items
+				Set<String> inventoryItems = inventory.keySet();
+				for(String items : inventoryItems) {
+					System.out.println(items + "\t" + inventory.get(items).getName() + "\t" + inventory.get(items).getPrice() + "\t" + inventory.get(items).getNumberOfItems());
 				}
 					
 				}
 			}
+		}
 		}
 	}
 
