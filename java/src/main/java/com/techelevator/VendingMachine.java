@@ -30,7 +30,7 @@ public class VendingMachine {
 	}
 	
 	public Map<String, Items> readInventory (File inputFile) throws FileNotFoundException{
-		Map<String, Items> inventoryMap = new HashMap<>();
+		Map<String, Items> inventoryMap = new LinkedHashMap<>();
 		Scanner fileScanner = new Scanner(inputFile);
 		while(fileScanner.hasNextLine()) {
 			String line = fileScanner.nextLine();

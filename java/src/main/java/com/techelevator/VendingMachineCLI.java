@@ -39,9 +39,14 @@ public class VendingMachineCLI {
 			Map<String, Items> inventory = vendingMachine.readInventory(newFile);
 			
 			
+			
+			
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
-				
+			Set<String> inventoryItems = inventory.keySet();
+			for(String items : inventoryItems) {
+				System.out.println(items + "\t" + inventory.get(items).getName() + "\t" + inventory.get(items).getPrice() + "\t" + inventory.get(items).getNumberOfItems());
+			}
 				
 				
 //				String path = "C:\\Users\\Student\\workspace\\mod1-capstone-team-8\\java\\vendingmachine.csv";
