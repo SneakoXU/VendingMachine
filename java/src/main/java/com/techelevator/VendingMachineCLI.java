@@ -3,8 +3,11 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.techelevator.view.Menu;
 
@@ -28,25 +31,32 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	public void run() {
+	public void run() throws FileNotFoundException {
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-
+			VendingMachine vendingMachine = new VendingMachine();
+			File newFile = vendingMachine.getInputFile();
+			Map<String, Items> inventory = vendingMachine.readInventory(newFile);
+			
+			
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
-				String path = "C:\\Users\\Student\\workspace\\mod1-capstone-team-8\\java\\vendingmachine.csv";
-				File inputFile = new File(path);
-				List<Items> inventoryList = new ArrayList<>();
-				try{
-					Scanner fileScanner = new Scanner(inputFile);
-					
-					fileScanner.useDelimiter("\\|");
-					while(fileScanner.hasNextLine()) {
-					System.out.println(fileScanner.nextLine());
-					}
-			}catch(FileNotFoundException e) {
-				e.printStackTrace();
-			}
+				
+				
+				
+//				String path = "C:\\Users\\Student\\workspace\\mod1-capstone-team-8\\java\\vendingmachine.csv";
+//				File inputFile = new File(path);
+//				List<Items> inventoryList = new ArrayList<>();
+//				try{
+//					Scanner fileScanner = new Scanner(inputFile);
+//					
+//					fileScanner.useDelimiter("\\|");
+//					while(fileScanner.hasNextLine()) {
+//					System.out.println(fileScanner.nextLine());
+//					}
+//			}catch(FileNotFoundException e) {
+//				e.printStackTrace();
+//			}
 				
 				
 				
@@ -59,7 +69,7 @@ public class VendingMachineCLI {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
