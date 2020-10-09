@@ -6,5 +6,9 @@ public class Beverages extends Items {
 		super(name, price);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getSound() {
+		return "Glug Glug, Yum!";
+	}
 
 }

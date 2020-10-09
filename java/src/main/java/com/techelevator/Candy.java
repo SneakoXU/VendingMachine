@@ -6,5 +6,9 @@ public class Candy extends Items{
 		super(name, price);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getSound() {
+		return "Munch Munch, Yum!";
+	}
 
 }

@@ -34,10 +34,18 @@ public abstract class Items {
 	public boolean isAvailableToPurchase() {
 		if(this.numberOfItems >=1) {
 			return true;
+		}else {
+			System.out.println("Item is SOLD OUT.");
+			return false;
 		}
-		return false;
+		
 	}
 	public void purchaseItem() {
 		numberOfItems -= 1;
 	}
+	
+	public abstract String getSound();
+
+	
+
 }

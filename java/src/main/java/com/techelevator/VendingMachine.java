@@ -2,15 +2,24 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class VendingMachine {
 	
+	public double balance;
+	
+	
 	public VendingMachine() {
-		
+		balance = 0;
+		List<String> list = new ArrayList<String>();
 	}
 	
 	
@@ -55,4 +64,41 @@ public class VendingMachine {
 	}
 		return inventoryMap;
 	}
-}
+	
+	public void feedMoney(double moneyAdded) {
+		Set<Double> price = new HashSet <Double> (Arrays.asList(
+			new Double[] {1.00,2.00,5.00,10.00}));
+			if(price.contains(moneyAdded)) {
+				balance += moneyAdded;
+			}else {
+					System.out.println("Invalid currency amount. Only $1s, $2s, $5s and $10s\n ");
+				}
+		}
+		
+	public double getBalance() {
+			return balance;
+			}
+	
+	public void changeReturned() {
+		double[] change = new double[] {0.25, 0.10, 0.05};
+		String[] coinNames = new String[] {"Quarter(s)", "Dime(s)", "Nickel(s)"};
+		for(int i=0; i<change.length; i++) {
+			int counter;
+			counter = (int) (balance/change[i]);
+			
+			balance -= (change[i] * counter);
+			System.out.println(counter + " " + coinNames[i]);
+		}
+		
+	public void logFile() throws IOException {
+		File outputFile = new File("Log.txt");
+		
+	}	
+		
+	}
+		
+	
+		
+
+	}
+

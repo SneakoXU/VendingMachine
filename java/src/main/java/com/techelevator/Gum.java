@@ -6,5 +6,9 @@ public class Gum extends Items{
 		super(name, price);
 		// TODO Auto-generated constructor stub
 	}
+	public String getSound() {
+		return "Chew Chew, Yum!";
+	}
+
 
 }

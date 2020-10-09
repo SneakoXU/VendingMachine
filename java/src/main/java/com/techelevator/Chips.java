@@ -6,5 +6,10 @@ public class Chips extends Items{
 		super(name, price);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getSound() {
+		return "Crunch Crunch, Yum!";
+	}
+
 
 }
