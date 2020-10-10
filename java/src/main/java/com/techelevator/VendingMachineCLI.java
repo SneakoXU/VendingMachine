@@ -22,7 +22,7 @@ public class VendingMachineCLI {
 	private static final String PRINT_MENU_FEED = "Feed Money";
 	private static final String PRINT_MENU_SELECT = "Select Product";
 	private static final String PRINT_MENU_FINISH = "Finish Transaction";
-	private static final String PRINT_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
+	private static final String PRINT_MENU_OPTION_DISPLAY_ITEMS = "Display Updated Vending Machine Items";
 	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH, PRINT_MENU_OPTION_DISPLAY_ITEMS};
 
 
@@ -101,11 +101,11 @@ public class VendingMachineCLI {
 							System.out.println("\n***SOLD OUT***\n");
 							break;
 						}else {
-							System.out.println("--- Insufficient funds, please give me money!");
+							System.out.println("*** Insufficient funds, please give me money! ***");
 							break;
 						}
 					}else {
-						System.out.println("--- Invalid option, try again!");
+						System.out.println("*** Invalid option, try again! ***");
 						break;
 					}
 					}

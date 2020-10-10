@@ -28,6 +28,14 @@ public class VendingMachine {
 	//	List<String> list ;
 	}
 	
+	public double getBalance() {
+		return balance;
+		}
+
+	public List<String> getList() {
+		return this.list;
+		}
+	
 	
 	public File getInputFile() {
 		String path ="vendingmachine.csv";
@@ -63,11 +71,8 @@ public class VendingMachine {
 		}else if(sections[3].equals("Gum")) {
 			Gum gumItem = new Gum(sections[1], Double.parseDouble(sections[2]));
 			inventoryMap.put(sections[0], gumItem);
-	}
-		
-		
-		
-	}
+			}
+		}
 		return inventoryMap;
 	}
 	
@@ -81,9 +86,7 @@ public class VendingMachine {
 				}
 		}
 		
-	public double getBalance() {
-			return balance;
-			}
+
 	
 	public void changeReturned() {
 		double[] change = new double[] {0.25, 0.10, 0.05};
@@ -97,6 +100,15 @@ public class VendingMachine {
 		}
 	}
 		
+	public List<String> log(String name, double beginningAmount, double endAmount) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+		LocalDateTime time = LocalDateTime.now();
+		DecimalFormat moneyFormat = new DecimalFormat("#.00");
+		String string = String.format(" %1$-20s %2$-15s %3$s %4$s", "> " + dtf.format(time), name, "$" + moneyFormat.format(beginningAmount), "$" + moneyFormat.format(endAmount));
+		 list.add(string);
+		return list;
+	}
+	
 	public void logFile() throws IOException {
 		File outputFile = new File("Log.txt");
 		List<String> list = getList();
@@ -108,19 +120,7 @@ public class VendingMachine {
 		}
 		
 	}	
-	public List<String> log(String name, double beginningAmount, double endAmount) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
-		LocalDateTime time = LocalDateTime.now();
-		DecimalFormat myFormat = new DecimalFormat("#.00");
-		String string = dtf.format(time) + " " + name + " " + beginningAmount + " " + myFormat.format(endAmount);
-		 list.add(string);
-		return list;
-	}
 	
-	public List<String> getList() {
-		return this.list;
-	}
-		
 	}
 		
 	
