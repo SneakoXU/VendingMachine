@@ -102,7 +102,7 @@ public class VendingMachineCLI {
 							purchasedObjects.add(inventory.get(input));
 							vendingMachine.balance -= inventory.get(input).getPrice();
 							vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
-							System.out.printf("--- Item selected: %10s | Item price: $ %.2f | Remaining balance: $ %.2f\n\n", inventory.get(input).getName(), inventory.get(input).getPrice(), vendingMachine.balance);
+							System.out.printf("\n\n --- Item selected: %10s | Item price: $ %.2f | Remaining balance: $ %.2f || \n\n\n", inventory.get(input).getName(), inventory.get(input).getPrice(), vendingMachine.balance);
 						}else if(!inventory.get(input).isAvailableToPurchase()) {
 							System.out.println("\n***SOLD OUT***\n");
 							break;
@@ -119,8 +119,7 @@ public class VendingMachineCLI {
 					vendingMachine.changeReturned();
 					vendingMachine.logFile();
 					vendingMachine.balance = 0;
-					System.out.printf("--- Final balance: $%.2f\n", vendingMachine.getBalance());
-					System.out.println("");
+					System.out.printf("--- Final balance: $%.2f\n\n", vendingMachine.getBalance());
 					
 					for(Items items: purchasedObjects) {
 						String sound = items.getSound();

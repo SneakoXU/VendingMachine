@@ -77,9 +77,9 @@ public class VendingMachine {
 	}
 	
 	public void feedMoney(double moneyAdded) {
-		Set<Double> price = new HashSet <Double> (Arrays.asList(
+		Set<Double> cash = new HashSet <Double> (Arrays.asList(
 			new Double[] {1.00,2.00,5.00,10.00}));
-			if(price.contains(moneyAdded)) {
+			if(cash.contains(moneyAdded)) {
 				balance += moneyAdded;
 			}else {
 					System.out.println("Invalid currency amount. Only $1s, $2s, $5s and $10s\n ");
