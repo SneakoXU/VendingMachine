@@ -22,8 +22,7 @@ public class VendingMachineCLI {
 	private static final String PRINT_MENU_FEED = "Feed Money";
 	private static final String PRINT_MENU_SELECT = "Select Product";
 	private static final String PRINT_MENU_FINISH = "Finish Transaction";
-	private static final String PRINT_MENU_OPTION_DISPLAY_ITEMS = "Display Updated Vending Machine Items";
-	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH, PRINT_MENU_OPTION_DISPLAY_ITEMS};
+	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH};
 
 
 	private Menu menu;
@@ -41,6 +40,10 @@ public class VendingMachineCLI {
 			Map<String, Items> inventory = vendingMachine.readInventory(newFile);
 			
 			
+			if(choice.equals(MAIN_MENU_OPTION_EXIT)) {
+				System.out.println("The END!");
+				System.exit(0);
+			}
 			
 			
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -49,7 +52,6 @@ public class VendingMachineCLI {
 			for(String items : inventoryItems) {
 				System.out.println(items + " " + inventory.get(items).toString());
 				}
-				
 				
 				
 				
@@ -83,14 +85,18 @@ public class VendingMachineCLI {
 					
 				}else if(choice2.equals(PRINT_MENU_SELECT)) {
 					while(true) {
+						Set<String> inventoryItems = inventory.keySet();
+						for(String items : inventoryItems) {
+							System.out.println(items + " " + inventory.get(items).toString());
+							}
 						System.out.println("--- Please enter the item you would like to purchase or (R)eturn to previous menu: ");
 						
 						Scanner in = new Scanner(System.in);
-						String input = in.nextLine();
+						String input = in.nextLine().toUpperCase();
 						
 						if(input.toUpperCase().equals("R")) {
 							break;
-					}else if(inventory.containsKey(input.toUpperCase())) {
+					}else if(inventory.containsKey(input)) {
 						if(inventory.get(input).isAvailableToPurchase() && vendingMachine.balance >= inventory.get(input).getPrice()){
 							inventory.get(input).purchaseItem();
 							purchasedObjects.add(inventory.get(input));
@@ -121,15 +127,7 @@ public class VendingMachineCLI {
 						System.out.println(sound);
 						}
 					break;
-				} else if (choice2.equals(PRINT_MENU_OPTION_DISPLAY_ITEMS)) {
-					// display vending machine items
-				Set<String> inventoryItems = inventory.keySet();
-				for(String items : inventoryItems) {
-					System.out.println(items + " " + inventory.get(items).toString());
-					
-				}
-					
-				}
+				} 
 			}
 		}
 		}
