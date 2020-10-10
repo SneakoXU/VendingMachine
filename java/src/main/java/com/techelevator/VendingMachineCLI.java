@@ -2,6 +2,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +33,7 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	public void run() throws FileNotFoundException {
+	public void run() throws IOException {
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			VendingMachine vendingMachine = new VendingMachine();
@@ -62,7 +63,7 @@ public class VendingMachineCLI {
 				if(choice2.contentEquals(PRINT_MENU_FEED)) {
 					while(true) {
 						try {
-							System.out.println("Enter amount you would like to feed or (R)eturn to previous menu: ");
+							System.out.println("--- Enter amount you would like to feed or (R)eturn to previous menu: ");
 							
 							Scanner in = new Scanner(System.in);
 							String input = in.nextLine();
@@ -72,16 +73,17 @@ public class VendingMachineCLI {
 							}else {
 								double amountEntered = Double.parseDouble(input);
 								vendingMachine.feedMoney(amountEntered);
-								System.out.println("Current balance $" + vendingMachine.getBalance());
+								vendingMachine.log("FEED MONEY: ", amountEntered, vendingMachine.getBalance());
+								System.out.printf("--- Current balance is: $%.2f\n\n", vendingMachine.getBalance());
 							}
 						}catch(NumberFormatException e) {
-							System.out.println("The machine only accepts $1s, $2s, $5s, and $10s");
+							System.out.println("--- The machine only accepts $1s, $2s, $5s, and $10s");
 						}
 					}
 					
 				}else if(choice2.equals(PRINT_MENU_SELECT)) {
 					while(true) {
-						System.out.println("Please enter the item you would like to purchase or (R)eturn to previous menu: ");
+						System.out.println("--- Please enter the item you would like to purchase or (R)eturn to previous menu: ");
 						
 						Scanner in = new Scanner(System.in);
 						String input = in.nextLine();
@@ -89,31 +91,29 @@ public class VendingMachineCLI {
 						if(input.toUpperCase().equals("R")) {
 							break;
 					}else if(inventory.containsKey(input.toUpperCase())) {
-						if(inventory.get(input).isAvailableToPurchase() && vendingMachine.getBalance() >= inventory.get(input).getPrice()){
+						if(inventory.get(input).isAvailableToPurchase() && vendingMachine.balance >= inventory.get(input).getPrice()){
 							inventory.get(input).purchaseItem();
 							purchasedObjects.add(inventory.get(input));
 							vendingMachine.balance -= inventory.get(input).getPrice();
-	//						vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
-							System.out.println("purchased");
-							inventory.get(input).purchaseItem();
-							System.out.println("Item selected: " + inventory.get(input).getName() + " | " + "Item price: " + inventory.get(input).getPrice() + " | " + "Remaining balance: " + vendingMachine.balance);
+							vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
+							System.out.printf("--- Item selected: %10s | Item price: $ %.2f | Remaining balance: $ %.2f\n\n", inventory.get(input).getName(), inventory.get(input).getPrice(), vendingMachine.balance);
 						}else if(!inventory.get(input).isAvailableToPurchase()) {
-							System.out.println("Sold out");
+							System.out.println("\n***SOLD OUT***\n");
 							break;
 						}else {
-							System.out.println("Insufficient funds, please give me money!");
+							System.out.println("--- Insufficient funds, please give me money!");
 							break;
 						}
 					}else {
-						System.out.println("Invalid option, try again!");
+						System.out.println("--- Invalid option, try again!");
 						break;
 					}
 					}
 				} else if(choice2.equals(PRINT_MENU_FINISH)) {
 					vendingMachine.changeReturned();
-					//vendingMachine.log
+					vendingMachine.logFile();
 					vendingMachine.balance = 0;
-					System.out.println("Final balance: $" + vendingMachine.getBalance());
+					System.out.printf("--- Final balance: $%.2f\n", vendingMachine.getBalance());
 					System.out.println("");
 					
 					for(Items items: purchasedObjects) {
@@ -121,11 +121,12 @@ public class VendingMachineCLI {
 						System.out.println(sound);
 						}
 					break;
-				} else if (choice.equals(PRINT_MENU_OPTION_DISPLAY_ITEMS)) {
+				} else if (choice2.equals(PRINT_MENU_OPTION_DISPLAY_ITEMS)) {
 					// display vending machine items
 				Set<String> inventoryItems = inventory.keySet();
 				for(String items : inventoryItems) {
-					System.out.println(items + "\t" + inventory.get(items).getName() + "\t" + inventory.get(items).getPrice() + "\t" + inventory.get(items).getNumberOfItems());
+					System.out.println(items + " " + inventory.get(items).toString());
+					
 				}
 					
 				}
@@ -134,7 +135,7 @@ public class VendingMachineCLI {
 		}
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);

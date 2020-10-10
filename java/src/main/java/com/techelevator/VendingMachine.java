@@ -15,16 +15,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.time.format.DateTimeFormatter;
 
 public class VendingMachine {
 	
 	public double balance;
-	public List <String> list;
+	public List <String> list = new ArrayList<String>();
 	
 	
 	public VendingMachine() {
 		balance = 0;
-		List<String> list = new ArrayList<String>();
+	//	List<String> list ;
 	}
 	
 	
@@ -107,13 +108,15 @@ public class VendingMachine {
 		}
 		
 	}	
-//	public List<String> log(String name, double beginningAmount, double endAmount) {
-//		LocalDateTime time = LocalDateTime.now();
-//		DecimalFormat myFormat = new DecimalFormat("#.00");
-//		String string = time + " " + name + " " + beginningAmount + " " + myFormat.format(endAmount);
-		// list.add(string);
-//		return list;
-//	}
+	public List<String> log(String name, double beginningAmount, double endAmount) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+		LocalDateTime time = LocalDateTime.now();
+		DecimalFormat myFormat = new DecimalFormat("#.00");
+		String string = dtf.format(time) + " " + name + " " + beginningAmount + " " + myFormat.format(endAmount);
+		 list.add(string);
+		return list;
+	}
+	
 	public List<String> getList() {
 		return this.list;
 	}
