@@ -2,8 +2,10 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -112,7 +114,7 @@ public class VendingMachine {
 	public void logFile() throws IOException {
 		File outputFile = new File("Log.txt");
 		List<String> list = getList();
-		try(FileWriter logWriter = new FileWriter(outputFile, true)) {
+		try(PrintWriter logWriter = new PrintWriter(new FileOutputStream(outputFile, true))) {
 			for(String string : list) {
 				logWriter.write(string);
 				logWriter.write("\n");
