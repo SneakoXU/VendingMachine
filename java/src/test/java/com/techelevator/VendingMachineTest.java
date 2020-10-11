@@ -11,23 +11,30 @@ import org.junit.Test;
 
 public class VendingMachineTest {
 	
-	@Test
-	public void feed_money_test() {
-		VendingMachine test = new VendingMachine();
-		double expectedAmount = 4.00;
-		double testAmount = 5.00;
-		double delta = 1.00;
-		test.feedMoney(testAmount);
-		Assert.assertEquals(expectedAmount, testAmount, delta);
-		
-	}
-	
+
 	@Test
 	public void input_file_should_exist() {
 		VendingMachine test = new VendingMachine();
 		String testPath = "vendingmachine.csv";
 		File testInputFile = new File(testPath);
-		Assert.assertEquals("File does not exist", testInputFile, test.getInputFile());
+		Assert.assertEquals("Result returned is incorrect", testInputFile, test.getInputFile());
+	}
+	
+
+	@Test
+	public void feed_money_test() {
+		VendingMachine test = new VendingMachine();
+		test.feedMoney(10);
+		//test.feedMoney(testAmount);
+		Assert.assertEquals(10, test.getBalance(), 1e-15);
+	}
+	
+	@Test
+	public void incorrect_feed_money_test_should_return_zero_balance() {
+		VendingMachine test = new VendingMachine();
+		test.feedMoney(20);
+		//String expected = "Invalid currency amount. Only $1s, $2s, $5s and $10s\n ";
+		Assert.assertEquals(0, test.getBalance(), 1e-15);
 	}
 	
 	@Test
@@ -48,7 +55,4 @@ public class VendingMachineTest {
 		Assert.assertEquals(expectedPrice, test.readInventory(testInputFile).get("A1").getPrice(), 1e-15);
 	}
 	
-	
-	
-
 }
