@@ -23,12 +23,12 @@ public class MenuTest {
 
 	@Test
 	public void displays_a_list_of_menu_options_and_prompts_user_to_make_a_choice() {
-		Object[] options = new Object[] { new Integer(3), "Blind", "Mice" };
+		Object[] options = new Object[] { new Integer(3), "Blind", "Mice"};
 		Menu menu = getMenuForTesting();
 
 		menu.getChoiceFromOptions(options);
 
-		String expected = "\n" + "1) " + options[0].toString() + "\n" + "2) " + options[1].toString() + "\n" + "3) "
+		String expected = "\n" + "1) " + options[0].toString() + "\n" + "2) " + options[1].toString() + "\n" + "3)"
 				+ options[2].toString() + "\n\n" + "Please choose an option >>> ";
 		Assert.assertEquals(expected, output.toString());
 	}

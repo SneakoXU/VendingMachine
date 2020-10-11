@@ -17,12 +17,12 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
+	private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT};
 	
 	private static final String PRINT_MENU_FEED = "Feed Money";
 	private static final String PRINT_MENU_SELECT = "Select Product";
 	private static final String PRINT_MENU_FINISH = "Finish Transaction";
-	private static final String[] PRINT_MENU_OPTIONS = { PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH};
+	private static final String[] PRINT_MENU_OPTIONS = {PRINT_MENU_FEED, PRINT_MENU_SELECT, PRINT_MENU_FINISH};
 
 
 	private Menu menu;
@@ -112,7 +112,7 @@ public class VendingMachineCLI {
 						}
 					}else {
 						System.out.println("*** Invalid option, try again! ***");
-						break;
+						
 					}
 					}
 				} else if(choice2.equals(PRINT_MENU_FINISH)) {
