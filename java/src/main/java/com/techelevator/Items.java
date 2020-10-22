@@ -29,7 +29,7 @@ public abstract class Items {
 		if(this.numberOfItems >=1) {
 			return true;
 		}else {
-			System.out.println("Item is SOLD OUT.");
+			System.out.println("\n**********Item is SOLD OUT.**********\n\n");
 			return false;
 		}
 		

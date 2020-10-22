@@ -96,17 +96,19 @@ public class VendingMachineCLI {
 						
 						if(input.toUpperCase().equals("R")) {
 							break;
-					}else if(inventory.containsKey(input)) {
+					}if(inventory.containsKey(input)) {
 						if(inventory.get(input).isAvailableToPurchase() && vendingMachine.balance >= inventory.get(input).getPrice()){
 							inventory.get(input).purchaseItem();
 							purchasedObjects.add(inventory.get(input));
 							vendingMachine.balance -= inventory.get(input).getPrice();
 							vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
 							System.out.printf("\n\n --- Item selected: %10s | Item price: $ %.2f | Remaining balance: $ %.2f || \n\n\n", inventory.get(input).getName(), inventory.get(input).getPrice(), vendingMachine.balance);
-						}else if(!inventory.get(input).isAvailableToPurchase()) {
-							System.out.println("\n***SOLD OUT***\n");
-							break;
-						}else {
+						}
+//						else if(!inventory.get(input).isAvailableToPurchase()) {
+//							System.out.println("\n***SOLD OUT***\n");
+//							break;
+//						}
+					if(vendingMachine.balance < inventory.get(input).getPrice()) {
 							System.out.println("*** Insufficient funds, please give me money! ***");
 							break;
 						}
