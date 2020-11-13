@@ -1,14 +1,15 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public abstract class Items {
 
 	private String name;
-	private double price;
+	private BigDecimal price = new BigDecimal("0.00");
 	private int numberOfItems = 5;
 	
-	public Items (String name, double price) { 
+	public Items (String name, BigDecimal price) { 
 		this.name = name;
 		this.price = price;
 	}
@@ -17,7 +18,7 @@ public abstract class Items {
 		return name;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 	
@@ -41,8 +42,9 @@ public abstract class Items {
 	public abstract String getSound();
 	
 	public String toString() {
+		//might need to remove moneyformat and change string to bigdecimal
 		DecimalFormat moneyFormat = new DecimalFormat("#.00");
-		String string= String.format(" %1$-20s %2$-10s %3$s", name, "$" + moneyFormat.format(price), this.getNumberOfItems());
+		String string= String.format(" %1$-20s %2$-10s %3$s", name, "$" + price, this.getNumberOfItems());
 		return string;
 	}
 	

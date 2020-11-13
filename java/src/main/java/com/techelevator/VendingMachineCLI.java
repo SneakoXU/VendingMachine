@@ -3,6 +3,7 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -73,7 +74,7 @@ public class VendingMachineCLI {
 							if(input.toUpperCase().equals("R")) {
 								break;
 							}else {
-								double amountEntered = Double.parseDouble(input);
+								BigDecimal amountEntered = new BigDecimal(input);
 								vendingMachine.feedMoney(amountEntered);
 								vendingMachine.log("FEED MONEY: ", amountEntered, vendingMachine.getBalance());
 								System.out.printf("--- Current balance is: $%.2f\n\n", vendingMachine.getBalance());
@@ -97,18 +98,28 @@ public class VendingMachineCLI {
 						if(input.toUpperCase().equals("R")) {
 							break;
 					}if(inventory.containsKey(input)) {
-						if(inventory.get(input).isAvailableToPurchase() && vendingMachine.balance >= inventory.get(input).getPrice()){
+						//NOT SURE IF THIS IS RIGHT SINCE IT CHANGES IT TO AN INT!!!!
+						//int balanceInt = vendingMachine.balance.intValue();
+						//NOT SURE IF THIS IS RIGHT SINCE IT CHANGES IT TO AN INT!!!!
+						//int priceInt = inventory.get(input).getPrice().intValue();
+//						balanceInt >= priceInt
+						if(inventory.get(input).isAvailableToPurchase() && (vendingMachine.balance.compareTo(inventory.get(input).getPrice()) == 1) || (vendingMachine.balance.compareTo(inventory.get(input).getPrice()) == 0)){
 							inventory.get(input).purchaseItem();
 							purchasedObjects.add(inventory.get(input));
-							vendingMachine.balance -= inventory.get(input).getPrice();
-							vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance + inventory.get(input).getPrice()), vendingMachine.balance);
+							vendingMachine.balance = vendingMachine.balance.subtract(inventory.get(input).getPrice());
+							vendingMachine.log(inventory.get(input).getName(), (vendingMachine.balance.add(inventory.get(input).getPrice())), vendingMachine.balance);
 							System.out.printf("\n\n --- Item selected: %10s | Item price: $ %.2f | Remaining balance: $ %.2f || \n\n\n", inventory.get(input).getName(), inventory.get(input).getPrice(), vendingMachine.balance);
+						}
+						if(vendingMachine.balance.compareTo(new BigDecimal("0.00")) == 0) {
+							System.out.println("***Balance is $0.00, please insert more money to purchase more items! ***");
+							break;							
 						}
 //						else if(!inventory.get(input).isAvailableToPurchase()) {
 //							System.out.println("\n***SOLD OUT***\n");
 //							break;
 //						}
-					if(vendingMachine.balance < inventory.get(input).getPrice()) {
+//					if(vendingMachine.balance < inventory.get(input).getPrice()) {
+					if(vendingMachine.balance.compareTo(inventory.get(input).getPrice()) == -1){	
 							System.out.println("*** Insufficient funds, please give me money! ***");
 							break;
 						}
@@ -120,7 +131,7 @@ public class VendingMachineCLI {
 				} else if(choice2.equals(PRINT_MENU_FINISH)) {
 					vendingMachine.changeReturned();
 					vendingMachine.logFile();
-					vendingMachine.balance = 0;
+					//vendingMachine.balance = new BigDecimal("0.00");
 					System.out.printf("--- Final balance: $%.2f\n\n", vendingMachine.getBalance());
 					
 					for(Items items: purchasedObjects) {

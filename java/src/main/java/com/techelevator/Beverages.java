@@ -1,8 +1,10 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 public class Beverages extends Items {
 
-	public Beverages(String name, double price) {
+	public Beverages(String name, BigDecimal price) {
 		super(name, price);
 		// TODO Auto-generated constructor stub
 	}
